@@ -11,3 +11,7 @@
 - Quando fazemos um request do tipo POST, o req da requisação vem pelo body, porem o express nao é capaz de lidar com o body em requisições e para isso usamos body-parser. O bodyParser vai atuar como um middleware e vai avaliar se na requisição existe um body e vai corrigir para o express, para que ele consiga trabalhar.
 - o arquivo .env.sample serve para mostrar ao usuario as variaveis necessarias sem infroma-las
 - não sao todas as rotas que vao precisar ter acesso ao mongoDB, logo, somente as rotas com /api que vao
+- usuario
+  .save() // O que estou fazendo / Ação
+  .then() // O que faz se der certo
+  .catch() // O que faz se der errado
