@@ -7,4 +7,7 @@
 - app.use():
   o express tem um middleware, na qual esse middleware pega a requisição e antes de executar faz uma verificação.
 - Quando fazemos uma importação de uma pasta e nao especificamos o arquivo que queremos abrir, o computador sempre vai abrir o arquivo chamado index.js
--
+- router.get('/:id') -> tem como pegar esse id fazendo req.params.id e temos que retornar uma resposta .res para o servidor nao ficar "esperando"
+- Quando fazemos um request do tipo POST, o req da requisação vem pelo body, porem o express nao é capaz de lidar com o body em requisições e para isso usamos body-parser. O bodyParser vai atuar como um middleware e vai avaliar se na requisição existe um body e vai corrigir para o express, para que ele consiga trabalhar.
+- o arquivo .env.sample serve para mostrar ao usuario as variaveis necessarias sem infroma-las
+- não sao todas as rotas que vao precisar ter acesso ao mongoDB, logo, somente as rotas com /api que vao
