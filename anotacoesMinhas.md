@@ -15,3 +15,32 @@
   .save() // O que estou fazendo / Ação
   .then() // O que faz se der certo
   .catch() // O que faz se der errado
+- O slug vai criar uma chave unica para garantirmos alem do mongo caso troquemos a hospedagem do banco.
+- PUT x PATCH - O put é capaz de criar uma nova entidade caso nao exista a entidade que queira atualizar. Alem do mais se passarmos valores incompletos para atualizar a entidade, salvaremos no back com info a menos, pois o put sobrepõe os valores. Por exemplo, se quisermos atualizar o email do usuario e enviarmos apenas alguns dados, faltando o nome, o PUT vai sobrepor os dados novos sem o nome, como se apagasse o antigo e salvasse um novo. Já o PATCH ele atualiza apenas o campo que queremos, caso nao tenhamos a entidade que queremos atualizar, não será criado uma nova, vai dar erro.
+- O slug esta sendo usado como uma forma de se aprender outra biblioteca, mas no nosso caso o \_id será unico, pois nao iremos trocar de banco e o mongo já cria um unico. Caso tivesse um problema e tivesse que mudar, bastava fazer uma verificação simples antes de salvar um novo elemento com msm id (Quase impossivel)
+- O Slug tem muitos problemas, mas vou deixar o exemplo como seria:
+  // get one (get -> /api/user/:slug) -- Usei o Slug apenas para aprender algo novo, vou deixar apenas nesse caso de get one, depois vou usar o id
+  router.get('/:slug', async (req, res) => {
+  try{
+  const usuarios = await User.findOne({
+  slug: req.params.slug
+  });
+  res.json({
+  success: true,
+  data: usuarios
+  })
+  }
+  catch(err){
+  res.json({
+  success: false,
+  message: err
+  })
+  }
+  });
+- O principal problema é que teriamos que atualizar o campo slug caso atualizamos o campo que usamos como referencia, logo, melhor usar o id msm
+
+### Heroku
+
+- para fazer um deploy no heroku, primeiro nos vamos fazer algumas configs:
+  - No package.json vamos dizer qual a versão do node queremos que ele rode("engines":{"node": "10.x"})
+  - Tambem precisa ter um script de start

@@ -4,11 +4,12 @@ require('../db/mongoConnection');
 
 const user = require('./user.routes');
 
+// Nenhuma rota /api deve ser chamada sem um complemento
 router.get('/', (req, res) => {
     res.json(
         {
             success: true,
-            message: 'Erro'
+            message: 'Erro, caminho incompleto'
         }
     )
 })

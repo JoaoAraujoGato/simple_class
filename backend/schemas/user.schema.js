@@ -10,21 +10,22 @@ exports.getSchema = function (){
     {
         name: {
             type: String,
-            required: true
+            required: true,
         },
         birth: {
             type: Date,
-            required: true
         },
         email: {
             type: String,
-            required: true
+            required: true,
+            unique: true
         },
         phone: {
             type: String,
         },
         cpf: {
             type: Number,
+            required: false,
         },
     }
     );
