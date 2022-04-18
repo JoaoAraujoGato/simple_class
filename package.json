@@ -4,7 +4,9 @@
   "description": "Plataforma com venda de Cursos online",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
+    "backend": "nodemon server.js",
+    "frontend": "cd frontend && npm start",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\" ",
     "start": "node server.js"
   },
   "keywords": [
@@ -19,14 +21,16 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "mongoose": "^6.3.0"
   },
   "devDependencies": {
+    "concurrently": "^7.1.0",
     "nodemon": "^2.0.15"
   },
-  "engines":{
+  "engines": {
     "node": "14.x"
   }
 }

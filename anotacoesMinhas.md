@@ -42,5 +42,10 @@
 ### Heroku
 
 - para fazer um deploy no heroku, primeiro nos vamos fazer algumas configs:
+
   - No package.json vamos dizer qual a versão do node queremos que ele rode("engines":{"node": "10.x"})
   - Tambem precisa ter um script de start
+  - para subir o projeto no heroku temos que fazer o git add, depois git commit -am "wip", depois git push heroku main
+  - se criarmos uma key no .env, temos que informar ao heroku tambem.
+
+- Para não ter que abrir duas tabs para rodar o front e back, vamos utilizar o concurrently. Esse problema de duas abas so acontece em desenvolvimento, no ambiente de produção nao teremos esse problema
