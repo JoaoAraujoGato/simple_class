@@ -1,12 +1,16 @@
 const router = require('express').Router();
-const User = require('../models/User');
 
-const UserController = require('../controllers/UserController');
+const UserController = require('../controllers/userController');
+const SessionController = require('../controllers/sessionController');
 
-router.post('/', UserController.create);        // create (post -> /api/user)
-router.get('/', UserController.index);          // list all (get -> /api/user)
-router.get('/:id', UserController.getById);     // get one (get -> /api/user/:id)
-router.patch('/:id', UserController.updateOne); // update one (patch -> /api/user/:id)
-router.delete('/:id', UserController.delete);   // delete one (delete -> /api/user/:id)
+const auth = require('../middlewares/authentication');
+
+router.post('/login', SessionController.signIn);
+
+router.post('/', UserController.create);                                // create (post -> /api/user)
+router.get('/', auth.authenticateToken, UserController.index);          // list all (get -> /api/user)
+router.get('/:id', auth.authenticateToken, UserController.getById);     // get one (get -> /api/user/:id)
+router.patch('/:id', auth.authenticateToken, UserController.updateOne); // update one (patch -> /api/user/:id)
+router.delete('/:id', auth.authenticateToken, UserController.delete);   // delete one (delete -> /api/user/:id)
 
 module.exports = router;

@@ -14,14 +14,17 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/', (req, res) => {
-    res.json({
-        'success': true
-    });
+    return res.status(403).json(
+        {
+            success: true,
+            message: 'Erro, rota incompleta'
+        }
+    );
 });
 
 // Padrão para Rotas do Back, todas irão começar com o /api
 app.use('/api', api)
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT_BACK;
 
 app.listen(PORT);

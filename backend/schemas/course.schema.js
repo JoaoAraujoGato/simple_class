@@ -18,9 +18,11 @@ exports.getSchema = function (){
         },
         category: {
             type: String,
+            enum: ['Desenvolvimento Web', 'Linguagens de Programação', 'Web Design', 'Matemática', 'Idiomas'],
+            required: true,
         },
         ownerId: {
-            type: ObjectId,
+            type: String,
             required: true,
         },
         createdAt: {

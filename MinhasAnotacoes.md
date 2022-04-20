@@ -57,3 +57,12 @@
 - Nos teremos dois ids mas eles não são os mesmos e cada um tem sua função. O firebase_id servirá para quando fizermos o login e verificar no firebase o usuario. já o \_id é referente ao \_id do documento criado no mongo. Usaremos ele quando quisermos referenciar um usuario por exemplo
 
 - A pasta de controller é responsavel por chamar as funções que queremos utilizar com as entidades (CRUD). O objetivo do controller é tirar do arquivo de rotas essas funções e facilitar a leitura.
+
+- Vamos utilizar o jwt para aumentar a segurança ao enviar os dados. No .env criamos um token abrindo o terminal, digitando 'node' e depois 'require('crypto').randomBytes(64).toString('Hex')'. Assim geramos um token. Agora precisamos criar uma rota de login com uma entidade chamada session.
+
+- Vai ser preciso enviar pelo header o access_token que enviamos de volta ao fazer o login. Ou seja, nas rotas que pedirmos uma autenticação pelo token, ao fazer a chamada dessa rota iremos enviar pelo header. Iremos salvar o token no localStorage/sessionStorage.
+- Quando fizermos o Login iremos pegar como resposta o token e vamos salvar o token no local storage.
+
+- NO GEOLABOR o equivalente para meu controller vai ser o arquivo .api que fica junto com o model e routes
+
+SENHA PADRAO: senha123

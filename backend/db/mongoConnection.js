@@ -7,5 +7,5 @@ mongoose.connect(
         useUnifiedTopology: true
     },
     () => {
-    console.log("Conectado ao mongoDB")
+    console.log("MongoDB conectado com sucesso!")
 });

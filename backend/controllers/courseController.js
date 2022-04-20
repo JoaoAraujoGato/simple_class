@@ -1,49 +1,42 @@
-const User = require('../models/User');
-const Firebase = require('../utils/Firebase');
+const Course = require('../models/course');
 
 module.exports = {
     async create(req, res){
         try{
-            const usuario = new User({
+            const curso = new Course({
                 name: req.body.name,
-                birth: req.body.birth,
-                email: req.body.email,
-                phone: req.body.phone,
-                cpf: req.body.cpf,
+                description: req.body.description,
+                category: req.body.category,
+                price: req.body.price,
+                duration: req.body.duration,
+                ownerId: req.body.ownerId,
             });
             
-            const uid = await Firebase.createNewUser(usuario.email, req.body.password)
-
-            delete req.body.password;
-            usuario.firebase_id = uid;
-
-            console.log(usuario);
-
-            const savedUser = await usuario.save();
+            const savedCourse = await curso.save();
             return res.status(200).json({
-                Success:true,
-                data: savedUser
+                Success: true,
+                Data: savedCourse
             })
         }
         catch(err){
-            console.warn("User creation failed: " + err);
+            console.warn("Course creation failed: " + err);
             return res.status(500).json({
                 Success: false,
-                Notification: "Internal server error while trying to create User",
+                Notification: "Internal server error while trying to create Course",
             })
         }
     },
 
     async index(req, res){
         try{
-            const usuarios = await User.find();
+            const cursos = await Course.find();
     
             return res.status(200).json({
                 Success: true,
-                data: usuarios
+                Data: cursos
             })
         }catch(err){
-            console.warn("User index failed: " + err);
+            console.warn("Course index failed: " + err);
             return res.status(500).json({
                 Success: false,
             })
@@ -52,26 +45,26 @@ module.exports = {
 
     async getById(req, res){
         try{
-            const result = await User.findOne({
+            const result = await Course.findOne({
                 _id: req.params.id
             });
         
             return res.status(200).json({
                 Success: true,
-                data: result
+                Data: result
             })
         }catch(err){
-            console.warn("User getBId failed: " + err);
+            console.warn("Course getBId failed: " + err);
             return res.status(500).json({
                 Success: false,
-                Notification : "Internal server error while trying to get User",
+                Notification : "Internal server error while trying to get Course",
             })
         }
     },
 
     async updateOne(req, res){
         try{
-            const result = await User.updateOne({
+            const result = await Course.updateOne({
                 _id: req.params.id,
             },
                 req.body
@@ -79,40 +72,40 @@ module.exports = {
             
             return res.status(200).json({ 
                 Success: true, 
-                Notification: "User update sucesfully",
+                Notification: "Course update sucesfully",
                 updated: result.modifiedCount
             });
         }catch(err){
-            console.warn("User update failed: " + err);
+            console.warn("Course update failed: " + err);
             return res.status(500).json({
                 Success: false,
-                Notification : "Internal server error while trying to update User",
+                Notification : "Internal server error while trying to update Course",
             })
         }
     },
 
     async delete(req, res){
         try{
-            const result = await User.deleteOne({
+            const result = await Course.deleteOne({
                 _id: req.params.id
             });
             
             if (result.deletedCount === 0){
                 return res.status(400).json({ 
                     Success: true,
-                    Notification: "user_id not found"
+                    Notification: "course_id not found"
                 });
             }
 
             return res.status(200).json({
                 Success: true,
-                Notification: "User deleted sucesfully",
+                Notification: "Course deleted sucesfully",
             })
         }catch(err){
-            console.warn("User delete failed: " + err);
+            console.warn("Course delete failed: " + err);
             return res.status(500).json({
                 Success: false,
-                Notification : "Internal server error while trying to get User",
+                Notification : "Internal server error while trying to get Course",
             })
         }
     },
