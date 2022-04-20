@@ -25,7 +25,10 @@ exports.getSchema = function (){
         },
         cpf: {
             type: Number,
-            required: false,
+        },
+        firebase_id: {
+            type: String,
+            required: true,
         },
     }
     );

@@ -39,7 +39,7 @@
   });
 - O principal problema é que teriamos que atualizar o campo slug caso atualizamos o campo que usamos como referencia, logo, melhor usar o id msm
 
-### Heroku
+/\*Heroku
 
 - para fazer um deploy no heroku, primeiro nos vamos fazer algumas configs:
 
@@ -48,4 +48,12 @@
   - para subir o projeto no heroku temos que fazer o git add, depois git commit -am "wip", depois git push heroku main
   - se criarmos uma key no .env, temos que informar ao heroku tambem.
 
+\*/
+
 - Para não ter que abrir duas tabs para rodar o front e back, vamos utilizar o concurrently. Esse problema de duas abas so acontece em desenvolvimento, no ambiente de produção nao teremos esse problema
+
+- Usamos o Firebase como uma forma segura de salvar a senha de um usuário, com ele nos nao salvamos no banco o campo password mas temos que lembrar que é preciso passar pelo body a senha do usuario. Mas isso já sabemos.
+
+- Nos teremos dois ids mas eles não são os mesmos e cada um tem sua função. O firebase_id servirá para quando fizermos o login e verificar no firebase o usuario. já o \_id é referente ao \_id do documento criado no mongo. Usaremos ele quando quisermos referenciar um usuario por exemplo
+
+- A pasta de controller é responsavel por chamar as funções que queremos utilizar com as entidades (CRUD). O objetivo do controller é tirar do arquivo de rotas essas funções e facilitar a leitura.
