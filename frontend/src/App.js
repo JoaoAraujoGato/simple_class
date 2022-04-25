@@ -1,4 +1,7 @@
 import api from "./services/api";
+import Routes from "./routes";
+import "./global.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 async function leDados(){
   const response = await api.get("/user");
@@ -8,9 +11,7 @@ async function leDados(){
 function App() {
   leDados();
   return (
-    <div>
-      <h1>Simple Class</h1>
-    </div>
+    <Routes />
   );
 }
 
