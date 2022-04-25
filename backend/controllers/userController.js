@@ -5,6 +5,7 @@ module.exports = {
     async create(req, res){
         try{
             const usuario = new User({
+                type: req.body.type,
                 name: req.body.name,
                 birth: req.body.birth,
                 email: req.body.email,
@@ -12,7 +13,7 @@ module.exports = {
                 cpf: req.body.cpf,
             });
             
-            const uid = await Firebase.createNewUser(usuario.email, req.body.password)
+            const uid = await Firebase.createNewUser(usuario.email, req.body.password);
 
             delete req.body.password;
             usuario.firebase_id = uid;
