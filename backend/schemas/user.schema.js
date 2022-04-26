@@ -30,7 +30,7 @@ exports.getSchema = function (){
             type: String,
         },
         cpf: {
-            type: Number,
+            type: String,
         },
         user_course: [
             {
