@@ -10,3 +10,28 @@ body,
 div#root {
     height: 100%;
 }
+
+select {
+    height: 35px;
+    border-radius: 8px;
+    text-align: center;
+    width: 250px;
+    text-align: center;
+}
+
+input {
+    height: 35px;
+    border-radius: 8px;
+    text-align: center;
+    width: 250px;
+}
+
+button {
+    height: 35px;
+    text-align: center;
+    transition: filter 0.2s;
+}
+
+button:hover{
+    filter: brightness(70%)
+}

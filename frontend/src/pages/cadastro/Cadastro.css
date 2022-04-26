@@ -1,31 +1,31 @@
-.base_login {
+.base_cadastro {
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #021B3D;
+    background-color: #ffffff;
     flex-grow: 1;
 }
 
-.box_login {
+.box_cadastro {
     max-width: 400px;
-    max-height: 400px;
+    max-height: 600px;
     padding: 20px;
     text-align: center !important;
     justify-content: center;
-    background: #ffffff;
-    box-shadow: 0 0 100px rgba(255, 255, 255, 0.2);
+    background: #021B3D;
+    box-shadow: 0 0 100px #021B3D;
     border-radius: 0.3cm;
 }
 
-.elements_login {
+.elements_cadastro {
     display: flex;
     flex-direction: column;
-    color: #021B3D;
+    color: #ffffff;
     max-width: 30vw;
 }
 
-.elements_login form {
+.elements_cadastro form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,19 +33,24 @@
     margin-right: 15px;
     margin-top: 35px;
 }
-.elements_login form input{
+.elements_cadastro form input{
     margin: 3px 0px 3px 0px;
 }
-.elements_login form button{
+.elements_cadastro form button{
     background-color: #021B3D;
-    color: white;
+    color: #ffffff;
     border: 1px solid;
     border-radius: 8px;
     margin: 3px 0px 3px 0px;
     width: 50%;
 }
 
-.textoLogin {
+.elements_cadastro form select {
+    background-color: #ffffff;
+    margin-bottom: 3px;
+}
+
+.textoCadastro {
     margin-top: 15px;
     margin-bottom: -15px;
 }

@@ -28,10 +28,13 @@ function Login(){
         }
     }
     return(
-        <div className="base">
-            <div className="container_login">
-                <div className="elements">
+        <div className="base_login">
+            <div className="box_login">
+                <div className="elements_login">
                     <img src="./images/SimpleClassAzul.png" alt="Simple Class"/>
+                    <div className="textoLogin">
+                        <h5>Faça o seu login agora mesmo!</h5>
+                    </div>
                     <form onSubmit={handleLogin}>  
                         <input  
                             type="email"
