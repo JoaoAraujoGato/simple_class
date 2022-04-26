@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import api from '../../services/api';
-import { logIn } from "../../services/auth";
+import { logIn, userId } from "../../services/auth";
+import { ImHome } from "react-icons/im";
 
 import "./Login.css";
 
@@ -15,7 +16,9 @@ function Login(){
         try{
             const response = await api.post("/user/login", {email, password});
             alert(`Bem vindo ${response.data.user.name}`);
-            logIn(response.data.accessToken)
+            logIn(response.data.accessToken);
+            userId(response.data.user._id);
+            localStorage.setItem("userName", response.data.user.name);
             history.push("home");
         } catch(err){
             if(err.response.status === 400){
@@ -41,17 +44,20 @@ function Login(){
                             placeholder="E-mail"
                             value={email}
                             onChange={e => setEmail(e.target.value)}
-                            required="true"
+                            required={true}
                         />
                         <input
                             type="password"
                             placeholder="Senha"
                             value={password}
                             onChange={e => setPassword(e.target.value)}
-                            required="true"
+                            required={true}
                         />
                         <button className="buttonLogin" type="submit">Login</button>
-                        <button className="cadastroButton_login" onClick={() => history.push("Cadastro")}>Cadastre-se</button>
+                        <button className="cadastroButton_login" onClick={() => history.push("cadastro")}>Cadastre-se</button>
+                        <button className="homeButtonLogin" onClick={()=> history.push("home")}>
+                            <ImHome style={{height: "25px", width: "25px"}}/>
+                        </button>
                     </form>
                 </div>
             </div>

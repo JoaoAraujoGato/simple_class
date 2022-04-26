@@ -35,18 +35,32 @@
 }
 .elements_cadastro form input{
     margin: 3px 0px 3px 0px;
-}
-.elements_cadastro form button{
     background-color: #021B3D;
     color: #ffffff;
-    border: 1px solid;
+    border: 1px solid #ffffff;
+}
+
+.elements_cadastro form input::placeholder{
+    color: #ffffff;
+}
+
+.elements_cadastro form input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
+
+.elements_cadastro form button{
+    background-color: #ffffff;
+    color: #021B3D;
+    border: 1px solid #021B3D;
     border-radius: 8px;
     margin: 3px 0px 3px 0px;
     width: 50%;
 }
 
 .elements_cadastro form select {
-    background-color: #ffffff;
+    background-color: #021B3D;
+    color: #ffffff;
+    border: 1px solid #ffffff;
     margin-bottom: 3px;
 }
 

@@ -4,6 +4,7 @@ import api from '../../services/api';
 import InputMask from 'react-input-mask';
 
 import "./Cadastro.css";
+import { ImHome } from "react-icons/im";
 
 function Cadastro(){
     const [userType, setUserType] = useState("");
@@ -49,7 +50,7 @@ function Cadastro(){
                             value={userType}
                             onChange={e => setUserType(e.target.value)}
                             defaultValue=""
-                            required="true"
+                            required={true}
                         >
                             <option disabled={true} value="">*Selecione um tipo de Usuario</option>
                             <option value="Professor">Professor</option>
@@ -60,28 +61,27 @@ function Cadastro(){
                             placeholder="*Nome"
                             value={name}
                             onChange={e => setName(e.target.value)}
-                            required="true"
+                            required={true}
                         />
                         <input
                             type="email"
                             placeholder="*E-mail"
                             value={email}
                             onChange={e => setEmail(e.target.value)}
-                            required="true"
+                            required={true}
                         />
                         <input
                             type="password"
                             placeholder="*Senha"
                             value={password}
                             onChange={e => setPassword(e.target.value)}
-                            required="true"
+                            required={true}
                         />
                         <input
                             type="date"
                             placeholder="Data de Nascimento"
                             value={birth}
                             onChange={e => setBirth(e.target.value)}
-                            required="false"
                         />
                         <InputMask
                             mask={'(99)99999.9999'}
@@ -98,6 +98,9 @@ function Cadastro(){
                         <div style={{display: 'flex', flexDirection:'column', width:'100%', alignItems:'center', marginTop: '10px'}}>
                             <button className="buttonCadastro" type="submit">Cadastre-se</button>
                             <button className="loginButton_cadastro" onClick={() => history.push("login")}>Faça o Login</button>
+                            <button className="homeButtonLogin" onClick={()=> history.push("home")}>
+                                <ImHome style={{height: "25px", width: "25px"}}/>
+                            </button>
                         </div>
                     </form>
                 </div>

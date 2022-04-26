@@ -1,0 +1,46 @@
+.logoMenu {
+    transition: filter 0.2s;
+    max-height: 40px
+}
+
+.logoMenu:hover{
+    filter: brightness(70%)
+}
+   
+.baseMenu button {
+    background-color: #021B3D;
+    color: white;
+    border: 0ch;
+    border-radius: 8px;
+}
+
+.baseMenu input {
+    background-color: #021B3D;
+    color: white;
+    border: 0.5px solid white;
+    width: 250px;
+}
+
+.baseMenu input::placeholder{
+    color: white;
+}
+
+.todosElementosMenu {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.elementosGeraisMenu button{
+    margin-right: 25px;
+    margin-left: 25px;
+}
+
+.elementosUserMenu button{
+    margin-left: 25px;
+    margin-right: 25px;
+}
+.elementosUserMenu{
+    display: flex;
+}

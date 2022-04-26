@@ -33,9 +33,15 @@
     margin-right: 15px;
     margin-top: 35px;
 }
+
 .elements_login form input{
     margin: 3px 0px 3px 0px;
 }
+
+.elements_login form input::placeholder{
+    color: #021B3D;
+}
+
 .elements_login form button{
     background-color: #021B3D;
     color: white;
