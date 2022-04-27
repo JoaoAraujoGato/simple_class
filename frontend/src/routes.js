@@ -5,6 +5,7 @@ import Cadastro from "./pages/cadastro";
 import Login from "./pages/login";
 import Home from "./pages/home";
 import Menu from "./pages/menu";
+import Cursos from "./pages/cursos";
 
 function Routes(){
     return(
@@ -25,6 +26,7 @@ function UserMenu(){
         <Menu>
             <Switch>
                 <Route path="/home" component={Home}/>
+                <Route path="/cursos" component={Cursos}/>
                 <Route component={() => <Redirect to="/home"/>}/>
             </Switch>
         </Menu>

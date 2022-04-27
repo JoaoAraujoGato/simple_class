@@ -8,10 +8,8 @@
 }
    
 .baseMenu button {
-    background-color: #021B3D;
-    color: white;
     border: 0ch;
-    border-radius: 8px;
+    border-radius: 5px;
 }
 
 .baseMenu input {
