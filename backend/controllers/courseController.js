@@ -10,6 +10,8 @@ module.exports = {
                 price: req.body.price,
                 duration: req.body.duration,
                 ownerId: req.body.ownerId,
+                ownerName: req.body.ownerName,
+                createdAt: req.body.createdAt
             });
             
             const savedCourse = await curso.save();
@@ -58,6 +60,26 @@ module.exports = {
             return res.status(500).json({
                 Success: false,
                 Notification : "Internal server error while trying to get Course",
+            })
+        }
+    },
+
+    async getByFilter(req, res){
+        try{            
+            const { category, price } = req.query;
+
+            const result = await Course.find({
+                category: category
+            });
+            return res.json({
+                Success: true,
+                Data: result
+            })
+        }catch(err){
+            console.warn("Course getByFilter failed: " + err);
+            return res.status(500).json({
+                Success: false,
+                Notification : "Internal server error while trying to get Courses",
             })
         }
     },

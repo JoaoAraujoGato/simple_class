@@ -25,6 +25,10 @@ exports.getSchema = function (){
             type: String,
             required: true,
         },
+        ownerName: {
+            type: String,
+            required: true,
+        },
         createdAt: {
             type: Date,
             default: Date.now(),

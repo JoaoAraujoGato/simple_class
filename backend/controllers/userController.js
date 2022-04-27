@@ -68,6 +68,26 @@ module.exports = {
         }
     },
 
+    async getByFilter(req, res){
+        try{
+            const { type, name, email } = req.query;
+
+            const result = await User.find({
+                type: type
+            });
+            return res.json({
+                Success: true,
+                Data: result
+            })
+        }catch(err){
+            console.warn("User getByFilter failed: " + err);
+            return res.status(500).json({
+                Success: false,
+                Notification : "Internal server error while trying to get Users",
+            })
+        }
+    },
+
     async updateOne(req, res){
         try{
             const result = await User.updateOne({

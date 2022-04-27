@@ -66,3 +66,6 @@
 - NO GEOLABOR o equivalente para meu controller vai ser o arquivo .api que fica junto com o model e routes
 
 SENHA PADRAO: senha123
+
+Quando quiser passar um query vou fazer assim:
+const response = await api.get(`/user?typeUser=${tipoUsuario}`);
