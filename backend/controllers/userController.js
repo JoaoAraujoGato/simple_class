@@ -71,10 +71,18 @@ module.exports = {
     async getByFilter(req, res){
         try{
             const { type, name, email } = req.query;
-
-            const result = await User.find({
-                type: type
-            });
+            let result;
+            if(type){
+                result = await User.find({
+                    type: type
+                });
+            }
+            if (name){
+                result = result.filter((usuario)=>usuario.name === name);
+            }
+            if(email){
+                result = result.filter((usuario)=>usuario.email === email);
+            }
             return res.json({
                 Success: true,
                 Data: result

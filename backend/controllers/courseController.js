@@ -67,10 +67,22 @@ module.exports = {
     async getByFilter(req, res){
         try{            
             const { category, price } = req.query;
-
-            const result = await Course.find({
-                category: category
-            });
+            console.log(category, price)
+            let result;
+            if(category !== undefined && price === undefined){
+                result = await Course.find({
+                    category: category
+                });
+            } if (category === undefined && price !== undefined){
+                result = await Course.find({
+                    price: price
+                });
+            }if (category !== undefined && price !== undefined){
+                result = await Course.find({
+                    category: category,
+                    price: price
+                });
+            }
             return res.json({
                 Success: true,
                 Data: result
