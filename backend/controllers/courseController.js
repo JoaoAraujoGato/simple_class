@@ -75,7 +75,7 @@ module.exports = {
                 });
             } if (category === undefined && price !== undefined){
                 result = await Course.find({
-                    price: price
+                    price: {"$lte": price}
                 });
             }if (category !== undefined && price !== undefined){
                 result = await Course.find({
