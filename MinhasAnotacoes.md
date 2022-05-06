@@ -69,3 +69,6 @@ SENHA PADRAO: senha123
 
 Quando quiser passar um query vou fazer assim:
 const response = await api.get(`/user?typeUser=${tipoUsuario}`);
+
+Teste 2
+Teste 3
