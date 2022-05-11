@@ -1,0 +1,12 @@
+.DadosUsuario {
+    background-color: aqua;
+}
+
+.CursosUsuario {
+    background-color: burlywood;
+}
+
+.container {
+    height: 80vh;
+    padding: 10px;
+}

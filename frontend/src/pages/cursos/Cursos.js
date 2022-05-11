@@ -3,8 +3,11 @@ import api from "../../services/api";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import { Modal } from "@material-ui/core";
 import FiltroModal from "../../components/filtroModal";
+import { useHistory } from "react-router-dom";
 
 export default function Cursos(){
+    const history = useHistory();
+
     const [allCourses, setAllCourses] = useState([]);
     const [nomeEstaOrdenado, setNomeEstaOrdenado] = useState();
     const [precoEstaOrdenado, setPrecoEstaOrdenado] = useState();
@@ -141,7 +144,7 @@ export default function Cursos(){
                         <tbody>
                             {allCourses.map((curso)=>{
                                 return(
-                                    <tr key={curso._id} onClick={()=> alert("Clicou no curo: " + curso.name)}>
+                                    <tr key={curso._id} onClick={()=> history.push({pathname: "curso", state: curso})}>
                                         <td>{curso.name}</td>        
                                         <td>{curso.category}</td>        
                                         <td>{curso.ownerName}</td>        
