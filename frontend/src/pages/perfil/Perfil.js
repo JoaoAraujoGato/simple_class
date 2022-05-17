@@ -5,6 +5,9 @@ import { calculateAge } from "../../shared";
 import "./Perfil.css";
 import { useHistory } from "react-router-dom";
 
+import { Modal } from "@material-ui/core";
+import NovoCursoModal from "../../components/novoCursoModal";
+
 function Perfil(){
     const history = useHistory();
 
@@ -12,7 +15,10 @@ function Perfil(){
     const [cursosUsuario, setCursosUsuario] = useState([]);
     const idUsusario = sessionStorage.getItem(USER_ID);
     const idadeUsuario = calculateAge(infoUser.birth);
-    
+    const tipoUsuario = localStorage.getItem("userType");
+
+    const [criarCursoModal, setCriarCursoModal] = useState(false);
+
     async function getInfoUsuario(){
         try{
             const response = await api.get(`user/${idUsusario}`);
@@ -22,14 +28,11 @@ function Perfil(){
         }   
     };
     async function getCursosUsuario(){
+        let response;
         try{
-            let response;
-            if(infoUser.type === "Aluno"){
-                response = await infoUser.user_course.map((cursoId)=>{
-                    let aux = api.get(`course/${cursoId}`);
-                    return aux.data.Data;
-                })
-                setCursosUsuario(response)
+            if(tipoUsuario === "Aluno"){
+                // let cursos = infoUser.user_course;
+                // response = await api.get("course/student", {cursos});
             }else{
                 response = await api.get(`course/owner/${idUsusario}`);
                 setCursosUsuario(response.data.Data);
@@ -38,12 +41,20 @@ function Perfil(){
             console.warn(err);
         }   
     };
-    
+
+    async function cadastrarCursoNovo(curso){
+        try{
+            const response = await api.post("/course", curso);
+            console.log(response.data)
+        }catch(err){
+            console.warn(err);
+        }
+    }
     useEffect(()=>{
         getInfoUsuario();
         getCursosUsuario();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[idUsusario]);
+    },[idUsusario, criarCursoModal]);
 
     return(
         <>
@@ -81,7 +92,7 @@ function Perfil(){
                         <tbody>
                             {cursosUsuario.map((curso)=>{
                                 return(
-                                    <tr key={curso._id} onClick={()=> alert("Clicou no curo: " + curso.name)}>
+                                    <tr key={curso._id} onClick={()=> alert("Clicou no curso: " + curso.name)}>
                                         <td>{curso.name}</td>        
                                         <td>{curso.category}</td>        
                                         <td>{curso.ownerName}</td>        
@@ -94,8 +105,26 @@ function Perfil(){
                         </tbody>
                     </table>
                 </div>
+                <div>
+                    {tipoUsuario === "Professor" ?
+                        <button className="w-10 p-1" onClick={() => setCriarCursoModal(true)}>
+                            Criar Curso
+                        </button>
+                    : 
+                         <button className="w-10 p-1" onClick={() => history.push("cursos")}>
+                            Procurar Cursos
+                        </button>
+                    }
+                </div>
             </div>
         </div>
+        <Modal
+            open={criarCursoModal}
+            onClose={()=>setCriarCursoModal(false)}
+            className="d-flex justify-content-center align-items-center"
+        >
+            <NovoCursoModal userId={idUsusario} nomeUsuario={infoUser.name} onClose={()=>setCriarCursoModal(false)} onSave={(e) => cadastrarCursoNovo(e)}/>
+        </Modal>
         </>
     )
 }

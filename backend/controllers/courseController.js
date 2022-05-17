@@ -56,7 +56,7 @@ module.exports = {
                 Data: result
             })
         }catch(err){
-            console.warn("Course getBId failed: " + err);
+            console.warn("Course getById failed: " + err);
             return res.status(500).json({
                 Success: false,
                 Notification : "Internal server error while trying to get Course",
@@ -106,7 +106,19 @@ module.exports = {
                 Data: result
             })
         }catch(err){
-            console.warn("User getBId failed: " + err);
+            console.warn("User getByOwnerId failed: " + err);
+            return res.status(500).json({
+                Success: false,
+                Notification : "Internal server error while trying to get User",
+            })
+        }
+    },
+
+    async getByStudentCourses(req, res){
+        try{
+            const studentCourses = req.body;
+        }catch(err){
+            console.warn("User getByStudent failed: " + err);
             return res.status(500).json({
                 Success: false,
                 Notification : "Internal server error while trying to get User",
