@@ -5,6 +5,8 @@ import { Modal } from "@material-ui/core";
 import FiltroModal from "../../components/filtroModal";
 import { useHistory } from "react-router-dom";
 
+import Pagination from "../../components/paginacaoTabelas/Pagination";
+
 export default function Cursos(){
     const history = useHistory();
 
@@ -14,6 +16,14 @@ export default function Cursos(){
     const [duracaoEstaOrdenado, setDuracaoEstaOrdenado] = useState();
     const [filterView, setFilterView] = useState(false);
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [coursesPerPage, setCoursesPerPage] = useState(5);
+
+    const indexOfLastCourse = currentPage * coursesPerPage;
+    const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
+    const currentCourse = allCourses.slice(indexOfFirstCourse, indexOfLastCourse);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber)
     async function getAllCourses(){
         try{
             const response = await api.get("course");
@@ -48,14 +58,14 @@ export default function Cursos(){
     function ordenarNome(){
         switch (nomeEstaOrdenado) {
             case false:
-                allCourses.sort(function(a,b) {
+                currentCourse.sort(function(a,b) {
                     return a.name < b.name ? 1 : a.name > b.name ? -1 : 0;
                 });
                 return(
                     <FaSortDown style={{height: "25px", width: "25px"}}/>
                 )
             case true:
-                allCourses.sort(function(a,b) {
+                currentCourse.sort(function(a,b) {
                     return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
                 });
                 return(
@@ -70,14 +80,14 @@ export default function Cursos(){
     function ordenarPreco(){
         switch (precoEstaOrdenado) {
             case false:
-                allCourses.sort(function(a,b) {
+                currentCourse.sort(function(a,b) {
                     return a.price < b.price ? 1 : a.price > b.price ? -1 : 0;
                 });
                 return(
                     <FaSortDown style={{height: "25px", width: "25px"}}/>
                 )
             case true:
-                allCourses.sort(function(a,b) {
+                currentCourse.sort(function(a,b) {
                     return a.price < b.price ? -1 : a.price > b.price ? 1 : 0;
                 });
                 return(
@@ -92,14 +102,14 @@ export default function Cursos(){
     function ordenarDuracao(){
         switch (duracaoEstaOrdenado) {
             case false:
-                allCourses.sort(function(a,b) {
+                currentCourse.sort(function(a,b) {
                     return a.duration < b.duration ? 1 : a.duration > b.duration ? -1 : 0;
                 });
                 return(
                     <FaSortDown style={{height: "25px", width: "25px"}}/>
                 )
             case true:
-                allCourses.sort(function(a,b) {
+                currentCourse.sort(function(a,b) {
                     return a.duration < b.duration ? -1 : a.duration > b.duration ? 1 : 0;
                 });
                 return(
@@ -142,7 +152,7 @@ export default function Cursos(){
                             </tr>
                         </thead>
                         <tbody>
-                            {allCourses.map((curso)=>{
+                            {currentCourse.map((curso)=>{
                                 return(
                                     <tr key={curso._id} onClick={()=> history.push({pathname: "curso", state: curso})}>
                                         <td>{curso.name}</td>        
@@ -157,6 +167,15 @@ export default function Cursos(){
                         </tbody>
                     </table>
                 </div>
+                <Pagination 
+                    coursesPerPage={coursesPerPage} 
+                    totalCourses={allCourses.length} 
+                    paginate={paginate}
+                />
+                <label className="d-flex flex-column">
+                    N° de Cursos exibidos
+                    <input type="number" placeholder=" - " style={{backgroundColor: "lightgray", width: "100px"}} onChange={(e)=>setCoursesPerPage(e.target.value)}/>
+                </label>
             </div>
         </div>
         <Modal
