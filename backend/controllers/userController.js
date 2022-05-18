@@ -98,7 +98,6 @@ module.exports = {
 
     async updateOne(req, res){
         try{
-            console.log("JOAO", req.body.user_course)
             const result = await User.updateOne({
                 _id: req.params.id,
             },
