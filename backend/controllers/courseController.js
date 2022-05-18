@@ -56,7 +56,7 @@ module.exports = {
                 Data: result
             })
         }catch(err){
-            console.warn("Course getById failed: " + err);
+            console.warn("Course getByCourseId failed: " + err);
             return res.status(500).json({
                 Success: false,
                 Notification : "Internal server error while trying to get Course",
@@ -109,7 +109,7 @@ module.exports = {
             console.warn("User getByOwnerId failed: " + err);
             return res.status(500).json({
                 Success: false,
-                Notification : "Internal server error while trying to get User",
+                Notification : "Internal server error while trying to get by Owner ID",
             })
         }
     },
