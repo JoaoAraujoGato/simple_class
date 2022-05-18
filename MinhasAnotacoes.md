@@ -72,3 +72,13 @@ const response = await api.get(`/user?typeUser=${tipoUsuario}`);
 
 Teste 2
 Teste 3
+
+---
+
+Sobre o Redux, eu posso usar o connect para conectar o estado para as props, assim como o dispatch (como no repositorio criado: redux-simples).
+Mas uma alternativa para esses dois casos seria importar do "react-redux" o useDispatch e useSelector, pois assim não iremos precisar buscar por props apenas.
+
+Caminho com o Sagas:
+1- Vamos fazer um dispatch em uma pagina chamando alguma action do tipo Request.
+2- essa action é entendida pelo saga (Olhar no takeLast, la que ele identifica que foi chamado um request)
+3- Depois de identificar o saga faz a requisição api e dispara uma action com Success com os dados da request

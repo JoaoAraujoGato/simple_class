@@ -1,7 +1,9 @@
-import { ADD_NEW_COURSE } from "../actions/actionsTypes";
+import { GET_ALL_COURSE_SUCCESS } from "../actions/actionsTypes";
+import { ADD_NEW_COURSE_SUCCESS, REMOVE_COURSE_SUCCESS} from "../actions/actionsTypes";
 
 const initialState = [
     {
+        id: 1,
         name: "Curso de Redux",
         category: "Desenvolvimento Web",
         ownerName: "Joao Araujo",
@@ -10,6 +12,7 @@ const initialState = [
         duration: 15
     },
     {
+        id: 2,
         name: "Curso de Front",
         category: "Desenvolvimento Web",
         ownerName: "Augusto Cesar",
@@ -24,10 +27,19 @@ export default function(state = initialState, action){
     // console.log("Reducer cursos...")
     // console.log(state, " <<>> ", action);
     switch(action.type){
-        case ADD_NEW_COURSE:
+        case ADD_NEW_COURSE_SUCCESS:
             return [
                 ...state,
                 action.payload
+            ];
+        case REMOVE_COURSE_SUCCESS:
+            let cursos = state.filter((curso)=>curso.id !== action.payload);
+            return [
+                ...cursos    
+            ]
+        case GET_ALL_COURSE_SUCCESS:
+            return [
+                ...action.payload    
             ]
         default:
             return state

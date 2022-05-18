@@ -1,20 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "./Home.css";
 
-import { connect } from "react-redux";
-import { adicionarNovoCurso } from "../../store/actions/actionsCourse";
+import { useDispatch, useSelector } from "react-redux";
+import { adicionarNovoCursoRequest, removerCursoRequest, getAllCoursesRequest } from "../../store/actions/actionsCourse";
 
 function Home(props){
     const history = useHistory();
+    
+    const dispatch = useDispatch();
+    const allCourses = useSelector(state => state.cursos);
 
     const cursoTeste = {
+        id: "teste",
         name: "testeNome",
         category: "testeCategoria",
         ownerName: "testeDono",
         createdAt: "07/04/1998",
         price: 20,
         duration: 10
+    }
+
+    useEffect(()=>{
+        dispatch(getAllCoursesRequest())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
+    function handleAddCurso(novoCurso){
+        dispatch(adicionarNovoCursoRequest(novoCurso));
+    }
+    function handleRemoveCurso(){
+        dispatch(removerCursoRequest("teste"));
     }
     return(
         <div className="baseHome">
@@ -46,7 +61,8 @@ function Home(props){
                 </div>
             </div>
             <div className="d-flex flex-column align-items-center">
-                <button onClick={()=>props.addCurso(cursoTeste)}>Add Curso</button>
+                <button onClick={()=>handleAddCurso(cursoTeste)}>Add Curso</button>
+                <button onClick={()=>handleRemoveCurso()}>Remove Cursos Teste</button>
                 <div className="TabelaQueVaiSerApagada w-75">
                     <table className="table table-striped table-hover table-sm table-bordered">
                         <caption>Lista de Cursos disponíveis</caption>
@@ -61,7 +77,7 @@ function Home(props){
                             </tr>
                         </thead>
                         <tbody>
-                            {props.cursos.map((curso, index)=>{
+                            {allCourses.map((curso, index)=>{
                                 return(
                                     <tr key={index}>
                                         <td>{curso.name}</td>        
@@ -81,19 +97,4 @@ function Home(props){
     )
 }
 
-function mapStateToProps(state){
-    return{
-        cursos: state.cursos
-    }
-}
-
-function mapDispatchToProp(dispatch){
-    return {
-        addCurso(novoCurso){
-            const action = adicionarNovoCurso(novoCurso);
-            dispatch(action);
-        }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProp)(Home);
+export default Home;
