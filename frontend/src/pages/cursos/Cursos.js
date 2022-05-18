@@ -131,8 +131,8 @@ export default function Cursos(){
             <div className="d-flex flex-column w-75 p-2">
                 <div className="d-flex justify-content-between p-2">
                     <label className="d-flex flex-column">
-                        N° de Cursos exibidos
-                        <input type="number" placeholder=" - " style={{backgroundColor: "lightgray", width: "100px"}} onChange={(e)=>setCoursesPerPage(e.target.value)}/>
+                        Cursos por Pagina
+                        <input type="number" placeholder={coursesPerPage} value={coursesPerPage} style={{backgroundColor: "lightgray", width: "100px"}} onChange={(e)=>setCoursesPerPage(e.target.value)}/>
                     </label>
                     <button className="w-10 p-1" onClick={()=>setFilterView(true)}>
                         Filtro
