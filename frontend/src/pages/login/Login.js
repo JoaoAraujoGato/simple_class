@@ -11,6 +11,7 @@ function Login(){
     const [password, setPassword] = useState("");
     const history = useHistory();
 
+
     async function handleLogin(e){
         e.preventDefault();
         try{
@@ -19,6 +20,7 @@ function Login(){
             logIn(response.data.accessToken);
             userId(response.data.user._id);
             localStorage.setItem("userName", response.data.user.name);
+            localStorage.setItem("userType", response.data.user.type);
             history.push("home");
         } catch(err){
             if(err.response.status === 400){

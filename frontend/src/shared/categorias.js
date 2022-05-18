@@ -8,7 +8,7 @@ export const Categorias = [
         value: "Design"     
     },
     {
-        name: "Financas",
+        name: "Finanças",
         value: "Financas"     
     },
     {

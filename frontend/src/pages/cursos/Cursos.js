@@ -3,14 +3,27 @@ import api from "../../services/api";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
 import { Modal } from "@material-ui/core";
 import FiltroModal from "../../components/filtroModal";
+import { useHistory } from "react-router-dom";
+
+import Pagination from "../../components/paginacaoTabelas/Pagination";
 
 export default function Cursos(){
+    const history = useHistory();
+
     const [allCourses, setAllCourses] = useState([]);
     const [nomeEstaOrdenado, setNomeEstaOrdenado] = useState();
     const [precoEstaOrdenado, setPrecoEstaOrdenado] = useState();
     const [duracaoEstaOrdenado, setDuracaoEstaOrdenado] = useState();
     const [filterView, setFilterView] = useState(false);
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [coursesPerPage, setCoursesPerPage] = useState(5);
+
+    const indexOfLastCourse = currentPage * coursesPerPage;
+    const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
+    const currentCourse = allCourses.slice(indexOfFirstCourse, indexOfLastCourse);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber)
     async function getAllCourses(){
         try{
             const response = await api.get("course");
@@ -45,14 +58,14 @@ export default function Cursos(){
     function ordenarNome(){
         switch (nomeEstaOrdenado) {
             case false:
-                allCourses.sort(function(a,b) {
+                currentCourse.sort(function(a,b) {
                     return a.name < b.name ? 1 : a.name > b.name ? -1 : 0;
                 });
                 return(
                     <FaSortDown style={{height: "25px", width: "25px"}}/>
                 )
             case true:
-                allCourses.sort(function(a,b) {
+                currentCourse.sort(function(a,b) {
                     return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
                 });
                 return(
@@ -67,14 +80,14 @@ export default function Cursos(){
     function ordenarPreco(){
         switch (precoEstaOrdenado) {
             case false:
-                allCourses.sort(function(a,b) {
+                currentCourse.sort(function(a,b) {
                     return a.price < b.price ? 1 : a.price > b.price ? -1 : 0;
                 });
                 return(
                     <FaSortDown style={{height: "25px", width: "25px"}}/>
                 )
             case true:
-                allCourses.sort(function(a,b) {
+                currentCourse.sort(function(a,b) {
                     return a.price < b.price ? -1 : a.price > b.price ? 1 : 0;
                 });
                 return(
@@ -89,14 +102,14 @@ export default function Cursos(){
     function ordenarDuracao(){
         switch (duracaoEstaOrdenado) {
             case false:
-                allCourses.sort(function(a,b) {
+                currentCourse.sort(function(a,b) {
                     return a.duration < b.duration ? 1 : a.duration > b.duration ? -1 : 0;
                 });
                 return(
                     <FaSortDown style={{height: "25px", width: "25px"}}/>
                 )
             case true:
-                allCourses.sort(function(a,b) {
+                currentCourse.sort(function(a,b) {
                     return a.duration < b.duration ? -1 : a.duration > b.duration ? 1 : 0;
                 });
                 return(
@@ -116,7 +129,11 @@ export default function Cursos(){
         <>
         <div className="d-flex justify-content-center">
             <div className="d-flex flex-column w-75 p-2">
-                <div className="d-flex align-self-end p-2">
+                <div className="d-flex justify-content-between p-2">
+                    <label className="d-flex flex-column">
+                        Cursos por Pagina
+                        <input type="number" placeholder={coursesPerPage} value={coursesPerPage} style={{backgroundColor: "lightgray", width: "100px"}} onChange={(e)=>setCoursesPerPage(e.target.value)}/>
+                    </label>
                     <button className="w-10 p-1" onClick={()=>setFilterView(true)}>
                         Filtro
                     </button>
@@ -139,9 +156,9 @@ export default function Cursos(){
                             </tr>
                         </thead>
                         <tbody>
-                            {allCourses.map((curso)=>{
+                            {currentCourse.map((curso)=>{
                                 return(
-                                    <tr key={curso._id} onClick={()=> alert("Clicou no curo: " + curso.name)}>
+                                    <tr key={curso._id} onClick={()=> history.push({pathname: "curso", state: curso})}>
                                         <td>{curso.name}</td>        
                                         <td>{curso.category}</td>        
                                         <td>{curso.ownerName}</td>        
@@ -153,6 +170,11 @@ export default function Cursos(){
                             })}
                         </tbody>
                     </table>
+                    <Pagination 
+                        coursesPerPage={coursesPerPage} 
+                        totalCourses={allCourses.length} 
+                        paginate={paginate}
+                    />
                 </div>
             </div>
         </div>

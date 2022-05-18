@@ -2,4 +2,4 @@
 
 Projeto que cria uma plataforma com venda de cursos online
 
-Como ta ficando agora?
+Atualizando para testar aqui!!

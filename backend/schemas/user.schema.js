@@ -34,9 +34,7 @@ exports.getSchema = function (){
         },
         user_course: [
             {
-                course_id: {
-                    type: String,
-                },
+                type: String,
             },
         ],
         firebase_id: {

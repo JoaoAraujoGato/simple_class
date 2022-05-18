@@ -1,1 +1,2 @@
-export { Categorias } from "./categorias"
+export { Categorias } from "./categorias";
+export { calculateAge } from "./calculadoraIdade";

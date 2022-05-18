@@ -6,6 +6,8 @@ import Login from "./pages/login";
 import Home from "./pages/home";
 import Menu from "./pages/menu";
 import Cursos from "./pages/cursos";
+import CursoEspecifico from "./pages/cursoEspecifico";
+import Perfil from "./pages/perfil";
 import { isAuthenticated } from "./services/auth";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -44,6 +46,8 @@ function UserMenu(){
                 <PrivateRoute path="/cursoUsuarioX"/>
                 <Route path="/home" component={Home}/>
                 <Route path="/cursos" component={Cursos}/>
+                <Route path="/curso" component={CursoEspecifico}/>
+                <PrivateRoute path="/perfil" component={Perfil}/>
                 <Route component={() => <Redirect to="/home"/>}/>
             </Switch>
         </Menu>

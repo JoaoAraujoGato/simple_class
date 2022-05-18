@@ -45,7 +45,7 @@ module.exports = {
         }
     },
 
-    async getById(req, res){
+    async getByCourseId(req, res){
         try{
             const result = await Course.findOne({
                 _id: req.params.id
@@ -56,7 +56,7 @@ module.exports = {
                 Data: result
             })
         }catch(err){
-            console.warn("Course getBId failed: " + err);
+            console.warn("Course getByCourseId failed: " + err);
             return res.status(500).json({
                 Success: false,
                 Notification : "Internal server error while trying to get Course",
@@ -92,6 +92,36 @@ module.exports = {
             return res.status(500).json({
                 Success: false,
                 Notification : "Internal server error while trying to get Courses",
+            })
+        }
+    },
+
+    async getByOwnerId(req, res){
+        try{
+            const result = await Course.find({
+                ownerId: req.params.ownerId
+            });
+            return res.status(200).json({
+                Success: true,
+                Data: result
+            })
+        }catch(err){
+            console.warn("User getByOwnerId failed: " + err);
+            return res.status(500).json({
+                Success: false,
+                Notification : "Internal server error while trying to get by Owner ID",
+            })
+        }
+    },
+
+    async getByStudentCourses(req, res){
+        try{
+            const studentCourses = req.body;
+        }catch(err){
+            console.warn("User getByStudent failed: " + err);
+            return res.status(500).json({
+                Success: false,
+                Notification : "Internal server error while trying to get User",
             })
         }
     },

@@ -48,7 +48,7 @@ export default function Menu(props){
                             {isAuthenticated() ? 
                             <>
                                 <button className="cursosUsuario" style={{backgroundColor: "#021B3D", color: "white"}} onClick={()=>history.push("cursosUsuario")}>Meus Cursos</button>
-                                <Avatar {...styleAvatar()} />
+                                <Avatar {...styleAvatar()} onClick={(e)=> history.push("perfil")}/>
                             </>
                             :
                             <>
