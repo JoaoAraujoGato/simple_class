@@ -1,7 +1,7 @@
 import { call, put, all, takeLatest } from 'redux-saga/effects';
 //Com o sagas nao podemos fazer uma requisição como faziamos normalmente (api.get("/..."))
 
-import { getAllCoursesSuccess } from "../actions/actionsCourse";
+import { getAllCoursesSuccess } from "../actions/courseActions";
 import { GET_ALL_COURSE_REQUEST } from "../actions/actionsTypes";
 
 import api from "../../services/api";

@@ -7,6 +7,7 @@ import storage from "redux-persist/lib/storage";
 
 import rootSaga from './sagas/rootSaga';
 import courseReducer from './reducers/courseReducer';
+import userReducer from './reducers/userReducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -14,6 +15,7 @@ const enhancer = applyMiddleware(sagaMiddleware);
 
 const reducers = combineReducers({
     cursos: courseReducer,
+    usuarios: userReducer,
 });
 
 const persistConfig = {

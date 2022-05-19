@@ -1,33 +1,30 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import api from '../../services/api';
-import { logIn, userId } from "../../services/auth";
 import { ImHome } from "react-icons/im";
+
+import { useDispatch } from "react-redux";
+import { logInUserRequest } from "../../store/actions/userActions";
 
 import "./Login.css";
 
 function Login(){
+    const dispatch = useDispatch();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const history = useHistory();
 
-
-    async function handleLogin(e){
+    function handleLogin(e){
         e.preventDefault();
         try{
-            const response = await api.post("/user/login", {email, password});
-            alert(`Bem vindo ${response.data.user.name}`);
-            logIn(response.data.accessToken);
-            userId(response.data.user._id);
-            localStorage.setItem("userName", response.data.user.name);
-            localStorage.setItem("userType", response.data.user.type);
-            history.push("home");
+            dispatch(logInUserRequest({email, password}));
+            setTimeout(()=>{history.push("home")}, 3000);
         } catch(err){
-            if(err.response.status === 400){
+            if(err === 400){
                 alert("Credentials Invalids:");
             }
             else{
-                alert(err.response.data.notification);
+                alert(err);
             }
             console.warn(err);
         }

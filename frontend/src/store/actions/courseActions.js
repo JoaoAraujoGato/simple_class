@@ -34,6 +34,7 @@ export function removerCursoSuccess(curso){
     }
 }
 
+// Unico que estou usando por enquanto
 export function getAllCoursesRequest(){
     return{
         type: GET_ALL_COURSE_REQUEST,

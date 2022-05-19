@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { USER_ID, logOut } from "../../services/auth";
+import React, { useState } from "react";
+import { USER_ID } from "../../services/auth";
 import api from "../../services/api";
 import { calculateAge } from "../../shared";
 import "./Perfil.css";
@@ -7,40 +7,20 @@ import { useHistory } from "react-router-dom";
 
 import { Modal } from "@material-ui/core";
 import NovoCursoModal from "../../components/novoCursoModal";
+import { logOutUserRequest } from "../../store/actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
 
 function Perfil(){
     const history = useHistory();
+    const dispatch = useDispatch();
 
-    const [infoUser, setInfoUser] = useState({});
-    const [cursosUsuario, setCursosUsuario] = useState([]);
+    const infoUser = useSelector(state => state.usuarios.userLogIn.user);
+    const [cursosUsuario] = useState([]);
     const idUsusario = sessionStorage.getItem(USER_ID);
-    const idadeUsuario = calculateAge(infoUser.birth);
-    const tipoUsuario = localStorage.getItem("userType");
+    const idadeUsuario = calculateAge(infoUser.birth)+100;
+    const tipoUsuario = infoUser.type;
 
     const [criarCursoModal, setCriarCursoModal] = useState(false);
-
-    async function getInfoUsuario(){
-        try{
-            const response = await api.get(`user/${idUsusario}`);
-            setInfoUser(response.data.Data);
-        }catch(err){
-            console.warn(err);
-        }   
-    };
-    async function getCursosUsuario(){
-        let response;
-        try{
-            if(tipoUsuario === "Aluno"){
-                // let cursos = infoUser.user_course;
-                // response = await api.get("course/student", {cursos});
-            }else{
-                response = await api.get(`course/owner/${idUsusario}`);
-                setCursosUsuario(response.data.Data);
-            }
-        }catch(err){
-            console.warn(err);
-        }   
-    };
 
     async function cadastrarCursoNovo(curso){
         try{
@@ -50,11 +30,6 @@ function Perfil(){
             console.warn(err);
         }
     }
-    useEffect(()=>{
-        getInfoUsuario();
-        getCursosUsuario();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[idUsusario, criarCursoModal]);
 
     return(
         <>
@@ -66,10 +41,8 @@ function Perfil(){
                 {infoUser.phone ?? <h6>{infoUser.phone}</h6>}
                 <h6>{infoUser.email}</h6>
                 <button onClick={()=>{
-                    logOut();
-                    localStorage.removeItem("userName");
-                    localStorage.removeItem("userType");
-                    history.push("home")
+                    dispatch(logOutUserRequest());
+                    setTimeout(()=>{history.push("home")},2000)
                 }}>
                     Logout
                 </button>
@@ -118,13 +91,17 @@ function Perfil(){
                 </div>
             </div>
         </div>
-        <Modal
-            open={criarCursoModal}
-            onClose={()=>setCriarCursoModal(false)}
-            className="d-flex justify-content-center align-items-center"
-        >
-            <NovoCursoModal userId={idUsusario} nomeUsuario={infoUser.name} onClose={()=>setCriarCursoModal(false)} onSave={(e) => cadastrarCursoNovo(e)}/>
-        </Modal>
+        <div>
+            <Modal
+                open={criarCursoModal}
+                onClose={()=>setCriarCursoModal(false)}
+                className="d-flex justify-content-center align-items-center"
+            >
+                <div>
+                    <NovoCursoModal userId={idUsusario} nomeUsuario={infoUser.name} onClose={()=>setCriarCursoModal(false)} onSave={(e) => cadastrarCursoNovo(e)}/>
+                </div>
+            </Modal>
+        </div>
         </>
     )
 }

@@ -4,10 +4,15 @@ import { AppBar, Avatar, Toolbar } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { isAuthenticated } from "../../services/auth";
 import {Categorias} from "../../shared";
+import { useSelector } from "react-redux";
 
 export default function Menu(props){
     const history = useHistory();
-    const userName = localStorage.getItem("userName");
+    const loggedUser = useSelector(state => state.usuarios.userLogIn);
+    let userName;
+    if(loggedUser !== null) {
+        userName = loggedUser.user.name;
+    }
     function styleAvatar() {
         const avatarNome = ()=>{
             if(userName.includes(' '))   

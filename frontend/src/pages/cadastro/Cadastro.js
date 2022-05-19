@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import api from '../../services/api';
+
+import { useDispatch } from "react-redux";
+import { cadastrarNovoUsuarioRequest } from "../../store/actions/userActions"
+
 import InputMask from 'react-input-mask';
 
 import "./Cadastro.css";
 import { ImHome } from "react-icons/im";
 
 function Cadastro(){
+    const dispatch = useDispatch();
+
     const [userType, setUserType] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -28,8 +33,7 @@ function Cadastro(){
                 phone,
                 cpf
             }
-            const response = await api.post("/user", data);
-            console.log(response.data);
+            dispatch(cadastrarNovoUsuarioRequest(data));
             alert(`Cadastro feito com Sucesso: ${data.name}`);
             history.push("login");
         } catch (error) {
@@ -49,7 +53,6 @@ function Cadastro(){
                             placeholder="Tipo de Usuario"
                             value={userType}
                             onChange={e => setUserType(e.target.value)}
-                            defaultValue=""
                             required={true}
                         >
                             <option disabled={true} value="">*Selecione um tipo de Usuario</option>

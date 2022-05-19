@@ -3,17 +3,24 @@ import { useHistory } from "react-router-dom";
 import "./Home.css";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCoursesRequest } from "../../store/actions/actionsCourse";
+import { getAllCoursesRequest } from "../../store/actions/courseActions";
+import { getAllUsersRequest } from "../../store/actions/userActions";
 
 function Home(){
     const history = useHistory();
     const dispatch = useDispatch();
     const allCourses = useSelector(state => state.cursos);
-
+    const user = useSelector(state => state.usuarios);
     useEffect(()=>{
-        if(allCourses !== undefined)
-        dispatch(getAllCoursesRequest())
-    },[allCourses, dispatch])
+        if(allCourses === null){
+            dispatch(getAllCoursesRequest());
+        }
+        if(user.allUsers === null && user.userLogIn){
+            if(user.userLogIn.user.type !== "Aluno"){
+                dispatch(getAllUsersRequest());
+            }
+        }
+    },[allCourses, user, dispatch])
 
     return(
         <div className="baseHome">
@@ -27,19 +34,19 @@ function Home(){
                 </div>
             </div>
             <div className="algumasCategorias">
-                <div onClick={()=>history.push("categorias/DesenvolvimentoWeb")}>
+                <div onClick={()=>setTimeout(()=>{history.push("categorias/DesenvolvimentoWeb")},2000)}>
                     <p>Cursos de Desenvolvimento Web</p>
                     <img src="./images/categorias/CursoDesenvolvimentoWeb.png" alt="Curso de Desenvolvimento Web" style={{width:"200px"}}/>
                 </div>
-                <div onClick={()=>history.push("categorias/Design")}>
+                <div onClick={()=>setTimeout(()=>{history.push("categorias/Design")},2000)}>
                     <p>Cursos de Design</p>
                     <img src="./images/categorias/CursoDesign.png" alt="Curso de Design" style={{width:"200px"}}/>
                 </div>
-                <div onClick={()=>history.push("categorias/Financas")}>
+                <div onClick={()=>setTimeout(()=>{history.push("categorias/Financas")},2000)}>
                     <p>Cursos de Finanças</p>
                     <img src="./images/categorias/CursoFinancas.png" alt="Curso de Finanças" style={{width:"200px"}}/>
                 </div>
-                <div onClick={()=>history.push("categorias/EstudoAcademico")}>
+                <div onClick={()=>setTimeout(()=>{history.push("categorias/EstudoAcademico")},2000)}>
                     <p>Cursos de Ensino e Estudo Acadêmico</p>
                     <img src="./images/categorias/CursoEstudoAcademico.png" alt="Curso de Estudo Academico" style={{width:"200px"}}/>
                 </div>
