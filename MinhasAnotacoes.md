@@ -80,5 +80,7 @@ Mas uma alternativa para esses dois casos seria importar do "react-redux" o useD
 
 Caminho com o Sagas:
 1- Vamos fazer um dispatch em uma pagina chamando alguma action do tipo Request.
-2- essa action é entendida pelo saga (Olhar no takeLast, la que ele identifica que foi chamado um request)
-3- Depois de identificar o saga faz a requisição api e dispara uma action com Success com os dados da request
+2- essa action é entendida pelo saga (Olhar no takeLast, la que ele identifica que foi chamado um request - Listener)
+3- Depois de identificar o saga faz a logica e a requisição api e dispara uma action com Success com os dados da request, dessa forma o reducer vai ouvir esse Success e criar uma nova versão do estado.
+
+Digitar no console do browser: $r.props.store.getState()
